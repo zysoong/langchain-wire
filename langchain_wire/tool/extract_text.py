@@ -23,8 +23,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 class RetrievalExtractTextTool(BaseBrowserTool):
     """Tool for extracting and retrieve relevant text on the current webpage."""
 
-    name: str = "retrieval_extract_text"
-    description: str = "Extract relevant text on the current webpage"
+    name: str = "extract_text"
+    description: str = "Extract text on the current webpage"
     args_schema: Type[BaseModel] = BaseModel
     prompt: PromptValue = None
 
@@ -92,7 +92,7 @@ class RetrievalExtractTextTool(BaseBrowserTool):
             full_text = "".join(text for text in soup.stripped_strings)
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=250, chunk_overlap=12)
             chunk_list = text_splitter.create_documents(texts=[full_text])
-            embeddings = OpenAIEmbeddings()
+            embeddings = OllamaEmbeddings(model="mistral-nemo")
             db = FAISS.from_documents(chunk_list, embeddings)
             retriever = db.as_retriever()
             docs = retriever.invoke(retriever_query)
