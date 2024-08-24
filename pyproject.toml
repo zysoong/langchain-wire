@@ -3,6 +3,7 @@ name = "langchain-wire"
 version = "0.1.0"
 description = ""
 authors = ["zysoong <ziyang.song@gmx.de>"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]

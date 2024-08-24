@@ -5,7 +5,7 @@ from langchain_community.tools import ClickTool, NavigateTool, NavigateBackTool,
     GetElementsTool, CurrentWebPageTool
 from langchain_community.tools.playwright.base import BaseBrowserTool
 from langchain_core.tools import BaseTool
-from tool.extract_text import RetrievalExtractTextTool
+from langchain_wire.tool.extract_text import RetrievalExtractTextTool
 
 
 class RetrievalPlayWrightBrowserToolkit(PlayWrightBrowserToolkit):
