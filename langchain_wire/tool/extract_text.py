@@ -15,6 +15,7 @@ from langchain_core.pydantic_v1 import BaseModel, root_validator
 from langchain_community.tools.playwright.utils import (
     aget_current_page, get_current_page,
 )
+from langchain_ollama import OllamaEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -59,7 +60,7 @@ class RetrievalExtractTextTool(BaseBrowserTool):
             full_text = "".join(text for text in soup.stripped_strings)
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=250, chunk_overlap=12)
             chunk_list = text_splitter.create_documents(texts=[full_text])
-            embeddings = OpenAIEmbeddings()
+            embeddings = OllamaEmbeddings(model="mistral-nemo")
             db = FAISS.from_documents(chunk_list, embeddings)
             retriever = db.as_retriever()
             docs = retriever.invoke(retriever_query)
